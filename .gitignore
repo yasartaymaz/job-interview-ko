@@ -1,0 +1,13 @@
+src/App/UIWeb/bin/
+src/App/UIWeb/obj/
+src/App/Business/bin/
+src/App/Business/obj/
+src/App/Core/bin/
+src/App/Core/obj/
+src/App/DataAccess/bin/
+src/App/DataAccess/obj/
+src/App/Entities/bin/
+src/App/Entities/obj/
+src/App/.vs/
+.vs/
+build/
