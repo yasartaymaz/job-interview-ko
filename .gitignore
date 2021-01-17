@@ -1,3 +1,5 @@
+src/App/UIConsole/bin/
+src/App/UIConsole/obj/
 src/App/UIWeb/bin/
 src/App/UIWeb/obj/
 src/App/Business/bin/
