@@ -12,7 +12,6 @@ namespace Business.Concrete
     public class AccountManager : IAccountService
     {
         private readonly IAccountDA _accountDA;
-
         public AccountManager(IAccountDA accountDA)
         {
             _accountDA = accountDA;
@@ -21,8 +20,13 @@ namespace Business.Concrete
         public IDataResult<AccountDTO> Get(int id)
         {
             Account entities = _accountDA.Get(x => x.Id == id);
-            //AccountDTO dto=_map
+            
             return new SuccessDataResult<AccountDTO>();
+        }
+
+        public IDataResult<AccountDTO> Insert(AccountDTO dto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

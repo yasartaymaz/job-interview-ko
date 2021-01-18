@@ -9,5 +9,7 @@ namespace Business.Abstract
     public interface IAccountService
     {
         IDataResult<AccountDTO> Get(int id);
+
+        IDataResult<AccountDTO> Insert(AccountDTO dto);
     }
 }

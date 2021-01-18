@@ -6,10 +6,21 @@
 
   <ItemGroup>
     <Folder Include="Database\SQLite\" />
+    <Folder Include="wwwroot\StaticFiles\Shared\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="bin\Debug\netcoreapp3.1\Database\SQLite\KODB.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 
 </Project>
