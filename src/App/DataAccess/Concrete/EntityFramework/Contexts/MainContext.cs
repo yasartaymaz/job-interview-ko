@@ -15,5 +15,8 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         }
 
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<AccountIdentity> AccountIdentities { get; set; }
+        public DbSet<SystemMessage> SystemMessages { get; set; }
+        public DbSet<SystemMessageType> SystemMessageTypes { get; set; }
     }
 }
