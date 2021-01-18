@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataAccess.Concrete.EntityFramework.Contexts;
+using Entities.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
