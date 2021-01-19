@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework.Operations
 {
-    public class EfAccountDA : EfEntityRepositoryBase<Account, MainContext>, IAccountDA
+    public class AccountDA : EfEntityRepositoryBase<Account, MainContext>, IAccountDA
     {
     }
 }

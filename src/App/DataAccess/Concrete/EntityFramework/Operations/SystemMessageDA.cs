@@ -8,7 +8,7 @@ using Entities.Concrete;
 using System.Linq;
 using Entities.Abstract;
 
-namespace DataAccess.Concrete.Main.EntityFramework.Operations
+namespace DataAccess.Concrete.EntityFramework.Operations
 {
     public class SystemMessageDA : EfEntityRepositoryBase<SystemMessage, MainContext>, ISystemMessageDA
     {
