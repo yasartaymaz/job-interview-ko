@@ -28,26 +28,26 @@ namespace UIWeb.HttpContextHelpers
             var httpContext = _httpContextAccessor.HttpContext;
             List<SystemMessageDTO> ListSMM = new List<SystemMessageDTO>();
             SystemMessageDTO SMM = new SystemMessageDTO() { Id = id };
-            if (httpContext.Session.GetString(Core.Constants.SessionTexts.SM) == "")
+            if (httpContext.Session.GetString(SessionTexts.SM) == "")
             {
                 ListSMM.Add(SMM);
             }
             else
             {
-                if (httpContext.Session.GetString(Core.Constants.SessionTexts.SM) != null)
+                if (httpContext.Session.GetString(SessionTexts.SM) != null)
                 {
-                    ListSMM = JsonConvert.DeserializeObject<List<SystemMessageDTO>>(httpContext.Session.GetString(Core.Constants.SessionTexts.SM));
+                    ListSMM = JsonConvert.DeserializeObject<List<SystemMessageDTO>>(httpContext.Session.GetString(SessionTexts.SM));
                 }
                 ListSMM.Add(SMM);
             }
             string sessionSmData = JsonConvert.SerializeObject(ListSMM);
-            httpContext.Session.SetString(Core.Constants.SessionTexts.SM, sessionSmData);
+            httpContext.Session.SetString(SessionTexts.SM, sessionSmData);
         }
 
         public void Flush()
         {
             var httpContext = _httpContextAccessor.HttpContext;
-            httpContext.Session.SetString(Core.Constants.SessionTexts.SM, "");
+            httpContext.Session.SetString(SessionTexts.SM, "");
         }
 
         public List<SystemMessageDTO> GetAll(List<SystemMessageDTO> SM)

@@ -18,11 +18,14 @@ namespace Business.DependencyResolvers.Autofac
             #region business layer
             builder.RegisterType<AccountManager>().As<IAccountService>();
             builder.RegisterType<SystemMessageManager>().As<ISystemMessageService>();
+            builder.RegisterType<SignManager>().As<ISignService>();
+            builder.RegisterType<AccountIdentityManager>().As<IAccountIdentityService>();
             #endregion
 
             #region data access layer
             builder.RegisterType<SystemMessageDA>().As<ISystemMessageDA>();
             builder.RegisterType<AccountDA>().As<IAccountDA>();
+            builder.RegisterType<AccountIdentityDA>().As<IAccountIdentityDA>();
             #endregion
 
             #region core layer

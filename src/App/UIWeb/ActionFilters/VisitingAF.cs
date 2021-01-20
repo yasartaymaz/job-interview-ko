@@ -1,5 +1,6 @@
 ﻿using Core.Constants;
 using Core.Utilities;
+using Entities.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace UIWeb.ActionFilters
             Controller controller = context.Controller as Controller;
             if (controller == null) return;
 
-            #region UrlStuff
+            #region urlStuff
 
             string currentHost = controller.HttpContext.Request.Host.Value;
             string currentUrl = controller.Request.GetDisplayUrl();
@@ -72,6 +73,39 @@ namespace UIWeb.ActionFilters
                 controller.ViewBag.AuthToken = _httpContextAccessor.HttpContext.Session.GetString(SessionTexts.AuthToken);
             }
 
+            #endregion
+
+            #region systemMessageStuff
+
+            if (context.HttpContext.Session.GetString(SessionTexts.SM) != null)
+            {
+                controller.ViewBag.ScriptSystemMessage = _sessionService.InitScript(context.HttpContext.Session.GetString(SessionTexts.SM)).Data;
+
+                if (pageName != "sign.out")
+                {
+                    _sessionService.Flush();
+                }
+            }
+
+            #endregion
+
+            #region titles
+
+            List<MenuDTO> menuList = new List<MenuDTO>();
+            menuList.Add(new MenuDTO() { PageName = "sign.in", PageTitle = "Giriş" });
+            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Makale Çek" });
+            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Sınav Oluştur" });
+            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Sınav Listesi" });
+            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Sınava Gir" });
+            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Tamamladığım Sınavlar" });
+
+            string pageTitle = "";
+            if (!Tools.IsObjectNullOrEmpty(menuList.FirstOrDefault(x => x.PageName == pageName)))
+            {
+                pageTitle = menuList.FirstOrDefault(x => x.PageName == pageName).PageTitle;
+            }
+
+            controller.ViewBag.PageTitle = pageTitle;
             #endregion
         }
 

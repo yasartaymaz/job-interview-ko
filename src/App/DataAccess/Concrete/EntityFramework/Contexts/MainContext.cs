@@ -1,4 +1,5 @@
-﻿using Core.Constants;
+﻿using Core.Configuration;
+using Core.Constants;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +12,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(SettingFiles.AppSettingsFile);
+            optionsBuilder.UseSqlite(ConfigurationHelper.GetDbContext(DatabaseContexts.MainContext));
         }
 
         public DbSet<Account> Accounts { get; set; }

@@ -36,7 +36,7 @@ namespace Core.DataAccess.EntityFramework
                 {
                     return context.Set<TEntity>().FirstOrDefault(filter);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     //todo: log
                     return null;

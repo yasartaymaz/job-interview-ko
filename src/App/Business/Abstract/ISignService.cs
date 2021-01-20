@@ -6,8 +6,8 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IAccountService
+    public interface ISignService
     {
-        IDataResult<AccountDTO> Get(int id);
+        IDataResult<SignInDTO> SignIn(SignInDTO input);
     }
 }

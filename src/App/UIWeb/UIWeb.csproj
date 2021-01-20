@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="bin\Debug\netcoreapp3.1\Database\SQLite\" />
     <Folder Include="Database\SQLite\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bin\Debug\netcoreapp3.1\Database\SQLite\KODB.db" />
   </ItemGroup>
 
   <ItemGroup>

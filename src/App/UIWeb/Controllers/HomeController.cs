@@ -10,7 +10,7 @@ namespace UIWeb.Controllers
     {
         public IActionResult Index()
         {
-            return Content("index");
+            return View();
         }
     }
 }

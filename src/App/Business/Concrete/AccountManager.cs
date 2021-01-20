@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Abstract;
@@ -12,21 +13,19 @@ namespace Business.Concrete
     public class AccountManager : IAccountService
     {
         private readonly IAccountDA _accountDA;
-        public AccountManager(IAccountDA accountDA)
+        private readonly IMapper _mapper;
+        public AccountManager(IAccountDA accountDA, IMapper mapper)
         {
             _accountDA = accountDA;
+            _mapper = mapper;
         }
 
         public IDataResult<AccountDTO> Get(int id)
         {
-            Account entities = _accountDA.Get(x => x.Id == id);
-            
-            return new SuccessDataResult<AccountDTO>();
-        }
+            Account entity = _accountDA.Get(x => x.Id == id);
+            AccountDTO dto = _mapper.Map<AccountDTO>(entity);
 
-        public IDataResult<AccountDTO> Insert(AccountDTO dto)
-        {
-            throw new NotImplementedException();
+            return new SuccessDataResult<AccountDTO>(dto);
         }
     }
 }

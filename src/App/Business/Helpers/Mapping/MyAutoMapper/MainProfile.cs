@@ -14,6 +14,9 @@ namespace Business.Helpers.Mapping.MyAutoMapper
             CreateMap<Account, AccountDTO>();
             CreateMap<AccountDTO, Account>();
 
+            CreateMap<AccountIdentity, AccountIdentityDTO>();
+            CreateMap<AccountIdentityDTO, AccountIdentity>();
+
         }
     }
 }

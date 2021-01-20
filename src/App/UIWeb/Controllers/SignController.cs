@@ -1,20 +1,28 @@
 ﻿using Business.Abstract;
+using Core.Utilities;
+using Core.Utilities.Results;
 using Entities.Abstract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UIWeb.HttpContextHelpers;
 
 namespace UIWeb.Controllers
 {
     public class SignController : Controller
     {
-        private readonly IAccountService _accountService;
+        private readonly ISignService _signService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ISessionService _sessionService;
 
-        public SignController(IAccountService accountService)
+        public SignController(ISignService signService, IHttpContextAccessor httpContextAccessor, ISessionService sessionService)
         {
-            _accountService = accountService;
+            _signService = signService;
+            _httpContextAccessor = httpContextAccessor;
+            _sessionService = sessionService;
         }
 
         public IActionResult Index()
@@ -30,7 +38,20 @@ namespace UIWeb.Controllers
         [HttpPost]
         public IActionResult In(SignInDTO form)
         {
-            AccountDTO accountdto = _accountService.SignIn(form).Data;
+            IDataResult<SignInDTO> result = _signService.SignIn(form);//bu satırda "var result" olarak da kullabilirdik ama tip belirtmeyi daha cok tercih ediyorum.
+            if (Tools.IsObjectNullOrEmpty(result.Data))
+            {
+                _sessionService.CheckMessages(result.Messages);
+                return Redirect("~/sign/in");
+            }
+
+            _httpContextAccessor.HttpContext.Session.SetString(Core.Constants.SessionTexts.AuthToken, result.Data.Token);
+            return Redirect("~/home/index");
+        }
+
+        public IActionResult Out()
+        {
+            _httpContextAccessor.HttpContext.Session.Remove(Core.Constants.SessionTexts.AuthToken);
             return Redirect("~/sign/in");
         }
     }
