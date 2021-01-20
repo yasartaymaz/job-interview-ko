@@ -5,12 +5,13 @@ using System.Text;
 
 namespace Entities.Concrete
 {
-    public class AccountIdentities : IEntity
+    public class TakenExamAnswer : IEntity
     {
         public int Id { get; set; }
         public int AccountId { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string SecretKey { get; set; }
+        public int ExamId { get; set; }
+        public int QuestionId { get; set; }
+        public int AnswerId { get; set; }
+        public int Correct { get; set; }
     }
 }

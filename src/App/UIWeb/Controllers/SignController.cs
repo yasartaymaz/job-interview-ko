@@ -46,6 +46,7 @@ namespace UIWeb.Controllers
             }
 
             _httpContextAccessor.HttpContext.Session.SetString(Core.Constants.SessionTexts.AuthToken, result.Data.Token);
+            _sessionService.CheckMessages(result.Messages);
             return Redirect("~/home/index");
         }
 

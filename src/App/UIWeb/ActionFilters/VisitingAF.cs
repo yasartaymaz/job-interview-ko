@@ -59,17 +59,25 @@ namespace UIWeb.ActionFilters
             #region token&session stuff
 
             List<string> pagesPermittedWhenSignedOut = new List<string> { "sign.in" };
+            List<string> pagesNotPermittedWhenSignedIn = new List<string> { "sign.in" };
             string token = _httpContextAccessor.HttpContext.Session.GetString(SessionTexts.AuthToken);
             if (String.IsNullOrEmpty(token))
             {
                 if (Tools.IsObjectNullOrEmpty(pagesPermittedWhenSignedOut.FirstOrDefault(x => x.Contains(pageName))))
                 {
+                    _sessionService.Create(5);
                     context.Result = new RedirectResult("~/sign/in");
                     return;
                 }
             }
             else
             {
+                if (!Tools.IsObjectNullOrEmpty(pagesNotPermittedWhenSignedIn.FirstOrDefault(x => x.Contains(pageName))))
+                {
+                    _sessionService.Create(4);
+                    context.Result = new RedirectResult("~/home/index");
+                    return;
+                }
                 controller.ViewBag.AuthToken = _httpContextAccessor.HttpContext.Session.GetString(SessionTexts.AuthToken);
             }
 
@@ -92,19 +100,22 @@ namespace UIWeb.ActionFilters
             #region titles
 
             List<MenuDTO> menuList = new List<MenuDTO>();
-            menuList.Add(new MenuDTO() { PageName = "sign.in", PageTitle = "Giriş" });
-            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Makale Çek" });
-            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Sınav Oluştur" });
-            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Sınav Listesi" });
-            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Sınava Gir" });
-            menuList.Add(new MenuDTO() { PageName = "", PageTitle = "Tamamladığım Sınavlar" });
+            menuList.Add(new MenuDTO() { PageName = "sign.in", PageTitle = "Giriş", ShowOnMenu = false });
+            menuList.Add(new MenuDTO() { PageName = "home.index", PageTitle = "Anasayfa", Url = "home/index", ShowOnMenu = true });
+            menuList.Add(new MenuDTO() { PageName = "article.get", PageTitle = "Makale Çek", Url = "article/get", ShowOnMenu = true });
+            menuList.Add(new MenuDTO() { PageName = "exam.create", PageTitle = "Sınav Oluştur", Url = "exam/create", ShowOnMenu = true });
+            menuList.Add(new MenuDTO() { PageName = "exam.list", PageTitle = "Sınav Listesi", Url = "exam/list", ShowOnMenu = true });
+            menuList.Add(new MenuDTO() { PageName = "exam.take", PageTitle = "Sınava Gir", Url = "exam/take", ShowOnMenu = true });
+            menuList.Add(new MenuDTO() { PageName = "exam.myfinishedlist", PageTitle = "Tamamladığım Sınavlar", Url = "exam.myfinishedlist", ShowOnMenu = true });
 
             string pageTitle = "";
             if (!Tools.IsObjectNullOrEmpty(menuList.FirstOrDefault(x => x.PageName == pageName)))
             {
                 pageTitle = menuList.FirstOrDefault(x => x.PageName == pageName).PageTitle;
+                menuList.FirstOrDefault(x => x.PageName == pageName).Active = true;
             }
 
+            controller.ViewBag.Menu = menuList.Where(x=>x.ShowOnMenu==true).ToList();
             controller.ViewBag.PageTitle = pageTitle;
             #endregion
         }
