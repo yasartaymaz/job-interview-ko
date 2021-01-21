@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IExamQuestionAnswer : IEntityRepository<ExamQuestionAnswer>
+    public interface IExamQuestionAnswerDA : IEntityRepository<ExamQuestionAnswer>
     {
     }
 }
