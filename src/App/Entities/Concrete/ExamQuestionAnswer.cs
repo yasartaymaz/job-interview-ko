@@ -7,7 +7,7 @@ namespace Entities.Concrete
 {
     public class ExamQuestionAnswer : IEntity
     {
-        public int MyProperty { get; set; }
+        public int Id { get; set; }
         public int QuestionId { get; set; }
         public string Value { get; set; }
         public int Correct { get; set; }
