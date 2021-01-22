@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace UIWeb.Controllers
 {
     public class ArticleController : Controller
     {
+        private readonly IArticleService _articleService;
         public IActionResult Get()
         {
 
