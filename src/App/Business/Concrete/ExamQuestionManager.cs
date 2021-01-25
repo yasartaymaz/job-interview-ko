@@ -29,5 +29,13 @@ namespace Business.Concrete
 
             return new SuccessDataResult<ExamQuestionDTO>(input);
         }
+
+        public IDataResult<List<ExamQuestionDTO>> GetListByExamId(int id)
+        {
+            List<ExamQuestion> entities = _examQuestionDA.GetList(x => x.ExamId == id);
+            List<ExamQuestionDTO> dto = _mapper.Map<List<ExamQuestionDTO>>(entities);
+
+            return new SuccessDataResult<List<ExamQuestionDTO>>(dto);
+        }
     }
 }

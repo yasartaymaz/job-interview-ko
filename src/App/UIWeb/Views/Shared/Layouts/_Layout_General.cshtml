@@ -73,5 +73,15 @@
     </script>
 
     @await Html.PartialAsync("~/Views/Shared/Partials/SystemMessageScripts.cshtml")
+
+    <script type="text/javascript">
+        $(function () {
+            $('#finishExam').click(function () {
+                alert("submit edildi");
+
+
+            });
+        });
+    </script>
 </body>
 </html>

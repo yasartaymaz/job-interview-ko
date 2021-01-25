@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Entities.Abstract
+
+<h3>Son Çekilen 5 Makale</h3>
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>Başlık</th>
+        <th>İşlem</th>
+    </tr>
+    @{
+        foreach (ArticleDTO item in ViewBag.Articles)
+        {
+            <tr>
+                <td>@item.Header</td>
+                <td><a href="~/exam/createexamfromarticle/@item.Id" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> Sınav Oluştur</a></td>
+            </tr>
+        }
+    }
+</table>

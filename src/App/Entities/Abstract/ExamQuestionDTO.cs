@@ -10,5 +10,6 @@ namespace Entities.Abstract
         public int Id { get; set; }
         public int ExamId { get; set; }
         public string Value { get; set; }
+        public List<ExamQuestionAnswerDTO> Answers { get; set; }
     }
 }

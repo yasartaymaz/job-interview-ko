@@ -19,6 +19,15 @@ namespace Business.Helpers.Mapping.MyAutoMapper
 
             CreateMap<Article, ArticleDTO>();
             CreateMap<ArticleDTO, Article>();
+
+            CreateMap<Exam, ExamDTO>();
+            CreateMap<ExamDTO, Exam>();
+
+            CreateMap<ExamQuestion, ExamQuestionDTO>();
+            CreateMap<ExamQuestionDTO, ExamQuestion>();
+
+            CreateMap<ExamQuestionAnswer, ExamQuestionAnswerDTO>();
+            CreateMap<ExamQuestionAnswerDTO, ExamQuestionAnswer>();
         }
     }
 }

@@ -105,8 +105,8 @@ namespace UIWeb.ActionFilters
             menuList.Add(new MenuDTO() { PageName = "article.get", PageTitle = "Makale Çek", Url = "article/get", ShowOnMenu = true });
             menuList.Add(new MenuDTO() { PageName = "exam.create", PageTitle = "Sınav Oluştur", Url = "exam/create", ShowOnMenu = true });
             menuList.Add(new MenuDTO() { PageName = "exam.list", PageTitle = "Sınav Listesi", Url = "exam/list", ShowOnMenu = true });
-            menuList.Add(new MenuDTO() { PageName = "exam.take", PageTitle = "Sınava Gir", Url = "exam/take", ShowOnMenu = true });
-            menuList.Add(new MenuDTO() { PageName = "exam.myfinishedlist", PageTitle = "Tamamladığım Sınavlar", Url = "exam.myfinishedlist", ShowOnMenu = true });
+            menuList.Add(new MenuDTO() { PageName = "exam.take", PageTitle = "Sınava Gir", Url = "exam/take", ShowOnMenu = false });
+            //menuList.Add(new MenuDTO() { PageName = "exam.myfinishedlist", PageTitle = "Tamamladığım Sınavlar", Url = "exam.myfinishedlist", ShowOnMenu = true });
             menuList.Add(new MenuDTO() { PageName = "exam.createexamfromarticle", PageTitle = "Makaleden Sınav Oluşturma", Url = "exam.createexamfromarticle", ShowOnMenu = false });
 
             string pageTitle = "";

@@ -1,0 +1,52 @@
+﻿@using Entities.Abstract
+
+@{
+    ExamDTO exam = ViewBag.Exam;
+}
+
+<div class="col-lg-12">
+    <h1>@exam.Article.Header</h1>
+</div>
+
+<div class="col-lg-12">
+    @exam.Article.Content
+</div>
+<hr />
+<form method="post" id="exam">
+    @{
+        int i = 0;
+        foreach (ExamQuestionDTO question in exam.Questions)
+        {
+            <div class="row">
+                <div class="col">
+                    <h4>@question.Value</h4>
+                </div>
+            </div>
+            <br />
+            <br />
+            <h5>Soru @(i+1)'in cevapları</h5>
+            <div class="row">
+                @{
+                    int j = 1;
+                    foreach (ExamQuestionAnswerDTO answer in question.Answers)
+                    {
+                        string newLineString = "</div><br /><div class='row'>";
+                        <div class="col">
+                            <label><input type="radio" name="question@(question.Id)" value="@answer.Id" required />&nbsp;@answer.Value</label>
+                        </div>
+                        if (j % 2 == 0 && j != 4)
+                        {
+                            @Html.Raw(newLineString)
+                        }
+                        j++;
+                    }
+                }
+            </div>
+            <hr />
+            i++;
+        }
+    }
+    <button type="button" class="btn btn-primary" id="finishExam">Sınavı Tamamla</button>
+    <br />
+    <br />
+</form>

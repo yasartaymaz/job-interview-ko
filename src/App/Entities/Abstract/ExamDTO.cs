@@ -9,5 +9,8 @@ namespace Entities.Abstract
     {
         public int Id { get; set; }
         public int ArticleId { get; set; }
+        public string ArticleHeader { get; set; }
+        public List<ExamQuestionDTO> Questions { get; set; }
+        public ArticleDTO Article { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace Business.Abstract
     public interface IExamQuestionService
     {
         IDataResult<ExamQuestionDTO> Insert(ExamQuestionDTO examQuestion);
+
+        IDataResult<List<ExamQuestionDTO>> GetListByExamId(int id);
     }
 }
