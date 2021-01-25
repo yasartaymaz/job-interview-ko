@@ -20,12 +20,20 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<SystemMessageManager>().As<ISystemMessageService>();
             builder.RegisterType<SignManager>().As<ISignService>();
             builder.RegisterType<AccountIdentityManager>().As<IAccountIdentityService>();
+            builder.RegisterType<ArticleManager>().As<IArticleService>();
+            builder.RegisterType<ExamManager>().As<IExamService>();
+            builder.RegisterType<ExamQuestionManager>().As<IExamQuestionService>();
+            builder.RegisterType<ExamQuestionAnswerManager>().As<IExamQuestionAnswerService>();
             #endregion
 
             #region data access layer
             builder.RegisterType<SystemMessageDA>().As<ISystemMessageDA>();
             builder.RegisterType<AccountDA>().As<IAccountDA>();
             builder.RegisterType<AccountIdentityDA>().As<IAccountIdentityDA>();
+            builder.RegisterType<ArticleDA>().As<IArticleDA>();
+            builder.RegisterType<ExamDA>().As<IExamDA>();
+            builder.RegisterType<ExamQuestionDA>().As<IExamQuestionDA>();
+            builder.RegisterType<ExamQuestionAnswerDA>().As<IExamQuestionAnswerDA>();
             #endregion
 
             #region core layer

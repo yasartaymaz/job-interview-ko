@@ -10,5 +10,6 @@ namespace DataAccess.Concrete.EntityFramework.Operations
 {
     public class ExamDA : EfEntityRepositoryBase<Exam, MainContext>, IExamDA
     {
+
     }
 }

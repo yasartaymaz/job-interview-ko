@@ -8,5 +8,6 @@ namespace DataAccess.Abstract
 {
     public interface IArticleDA : IEntityRepository<Article>
     {
+        List<Article> GetLastDescending(int take);
     }
 }

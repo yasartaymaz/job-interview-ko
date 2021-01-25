@@ -107,6 +107,7 @@ namespace UIWeb.ActionFilters
             menuList.Add(new MenuDTO() { PageName = "exam.list", PageTitle = "Sınav Listesi", Url = "exam/list", ShowOnMenu = true });
             menuList.Add(new MenuDTO() { PageName = "exam.take", PageTitle = "Sınava Gir", Url = "exam/take", ShowOnMenu = true });
             menuList.Add(new MenuDTO() { PageName = "exam.myfinishedlist", PageTitle = "Tamamladığım Sınavlar", Url = "exam.myfinishedlist", ShowOnMenu = true });
+            menuList.Add(new MenuDTO() { PageName = "exam.createexamfromarticle", PageTitle = "Makaleden Sınav Oluşturma", Url = "exam.createexamfromarticle", ShowOnMenu = false });
 
             string pageTitle = "";
             if (!Tools.IsObjectNullOrEmpty(menuList.FirstOrDefault(x => x.PageName == pageName)))

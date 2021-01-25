@@ -1,0 +1,17 @@
+﻿@using Entities.Abstract
+
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>Başlık</th>
+        <th>İşlem</th>
+    </tr>
+    @{ 
+        foreach (ArticleDTO item in ViewBag.Articles)
+        {
+            <tr>
+                <td>@item.Header</td>
+                <td><a href="~/exam/createexamfromarticle/@item.Id" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> Sınav Oluştur</a></td>
+            </tr>
+        }
+    }
+</table>
