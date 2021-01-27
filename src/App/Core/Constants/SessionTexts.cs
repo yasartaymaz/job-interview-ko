@@ -10,5 +10,6 @@ namespace Core.Constants
         public static string AuthLastName = "AuthLastName";
         public static string AuthToken = "AuthToken";
         public static string SM = "SM";
+        public static string AuthAccountId = "AuthAccountId";
     }
 }

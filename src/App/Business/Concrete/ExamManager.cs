@@ -101,6 +101,7 @@ namespace Business.Concrete
             ExamDTO exam = Get(id).Data;
             exam.Article = _articleService.Get(exam.ArticleId).Data;
             exam.Questions = _examQuestionService.GetListByExamId(id).Data;
+            //exam.Questions = _examQuestionAnswerService.GetListAnswersByQuestions(exam.Questions).Data; //todo: bu aktive edilip alttakif oreach kaldırılacak
             foreach (ExamQuestionDTO item in exam.Questions)
             {
                 item.Answers = _examQuestionAnswerService.GetListByQuestionId(item.Id).Data;
@@ -122,6 +123,14 @@ namespace Business.Concrete
             ExamDTO exam = Get(id).Data;
             Exam entity = _mapper.Map<Exam>(exam);
             _examDA.Delete(entity);
+        }
+
+        public IDataResult<TakeExamDTO> TakeExam(TakeExamDTO takeExamDto)
+        {
+            //getlist examquestionanswers
+            //foreach takeExamdto.TakenAnswers
+            //return takeExamDto
+            return new SuccessDataResult<TakeExamDTO>(takeExamDto);
         }
     }
 }

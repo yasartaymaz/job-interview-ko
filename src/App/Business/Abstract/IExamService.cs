@@ -15,5 +15,7 @@ namespace Business.Abstract
         IDataResult<ExamDTO> GetExamFull(int id);
         
         void Delete(int id);
+
+        IDataResult<TakeExamDTO> TakeExam(TakeExamDTO takeExamDto);
     }
 }

@@ -20,7 +20,7 @@ namespace DataAccess.Concrete.EntityFramework.Operations
                 {
                     Id = x.Id,
                     ArticleId = x.ArticleId,
-                    ArticleHeader = db.Articles.FirstOrDefault().Header//defensive programming dikkate alınarak yazıldıgında bu satırı exammanagerda bu metodun sonucu snrasında article servisine baglanıp da cekilebilir.
+                    ArticleHeader = db.Articles.FirstOrDefault(y => y.Id == x.ArticleId).Header//defensive programming dikkate alınarak yazıldıgında bu satırı exammanagerda bu metodun sonucu snrasında article servisine baglanıp da cekilebilir.
                 }).ToList();
 
                 return result;

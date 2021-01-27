@@ -46,6 +46,8 @@ namespace UIWeb.Controllers
             }
 
             _httpContextAccessor.HttpContext.Session.SetString(Core.Constants.SessionTexts.AuthToken, result.Data.Token);
+            _httpContextAccessor.HttpContext.Session.SetInt32(Core.Constants.SessionTexts.AuthAccountId, result.Data.AccountId);
+
             _sessionService.CheckMessages(result.Messages);
             return Redirect("~/home/index");
         }
@@ -53,6 +55,7 @@ namespace UIWeb.Controllers
         public IActionResult Out()
         {
             _httpContextAccessor.HttpContext.Session.Remove(Core.Constants.SessionTexts.AuthToken);
+            _httpContextAccessor.HttpContext.Session.Remove(Core.Constants.SessionTexts.AuthAccountId);
             return Redirect("~/sign/in");
         }
     }

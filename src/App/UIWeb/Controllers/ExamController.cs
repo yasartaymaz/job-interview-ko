@@ -17,12 +17,14 @@ namespace UIWeb.Controllers
         private readonly ISessionService _sessionService;
         private readonly IArticleService _articleService;
         private readonly IExamService _examService;
+        private readonly IExamQuestionService _examQuestionService;
 
-        public ExamController(ISessionService sessionService, IArticleService articleService, IExamService examService)
+        public ExamController(ISessionService sessionService, IArticleService articleService, IExamService examService, IExamQuestionAnswerService examQuestionAnswerService, IExamQuestionService examQuestionService)
         {
             _sessionService = sessionService;
             _articleService = articleService;
             _examService = examService;
+            _examQuestionService = examQuestionService;
         }
 
         public IActionResult Create()
@@ -99,6 +101,25 @@ namespace UIWeb.Controllers
             ExamDTO exam = _examService.GetExamFull(id).Data;
             ViewBag.Exam = exam;
 
+            if (!Tools.IsObjectNullOrEmpty(exam))
+            {
+                int counter = 0;
+                string questionIdArrayForJavascript = "var listQuestionId = [";
+                foreach (ExamQuestionDTO item in exam.Questions)
+                {
+                    if (counter > 0)
+                    {
+                        questionIdArrayForJavascript += ",";
+                    }
+                    questionIdArrayForJavascript += "'" + item.Id.ToString() + "'";
+
+                    counter++;
+                }
+                questionIdArrayForJavascript += "];\n";
+
+                ViewBag.QuestionIdArray = questionIdArrayForJavascript;
+            }
+
             return View();
         }
 
@@ -108,6 +129,40 @@ namespace UIWeb.Controllers
 
             _sessionService.Create(10);
             return Redirect("~/exam/list");
+        }
+
+        [HttpPost]
+        public IActionResult TakeExamViaAjax(IFormCollection form)
+        {
+            int accountId = Tools.StrToInt(Request.Query["accountId"].ToString());
+            int examId = Tools.StrToInt(Request.Query["examId"].ToString());
+
+            List<ExamQuestionDTO> questions = _examQuestionService.GetListByExamId(examId).Data;
+            TakeExamDTO takeExamDto = new TakeExamDTO
+            {
+                AccountId = accountId,
+                ExamId = examId
+            };
+            List<TakenExamAnswerDTO> answers = new List<TakenExamAnswerDTO>();
+            foreach (ExamQuestionDTO item in questions)
+            {
+                if (!String.IsNullOrEmpty(form["givenExamAnswers[question" + item.Id + "]"]))//burayı görmuyor
+                {
+                    TakenExamAnswerDTO answer = new TakenExamAnswerDTO
+                    {
+                        ExamId = examId,
+                        AccountId = accountId,
+                        QuestionId = item.Id,
+                        AnswerId = Tools.StrToInt(form["givenExamAnswers[question" + item.Id + "]"])
+                    };
+                    answers.Add(answer);
+                }
+            }
+            takeExamDto.TakenAnswers = answers;
+
+            takeExamDto = _examService.TakeExam(takeExamDto).Data;
+
+            return Json(takeExamDto);
         }
     }
 }

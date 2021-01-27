@@ -12,5 +12,6 @@ namespace Entities.Abstract
         public int VisitId { get; set; }
         public int VisitDetailId { get; set; }
         public string Token { get; set; }
+        public int AccountId { get; set; }
     }
 }

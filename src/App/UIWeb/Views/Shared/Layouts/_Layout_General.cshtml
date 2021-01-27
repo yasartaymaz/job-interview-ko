@@ -1,4 +1,5 @@
 ﻿@using Entities.Abstract
+@using Core.Utilities
 
 <!doctype html>
 <html lang="en">
@@ -74,14 +75,39 @@
 
     @await Html.PartialAsync("~/Views/Shared/Partials/SystemMessageScripts.cshtml")
 
-    <script type="text/javascript">
+<script type="text/javascript">
         $(function () {
+            var listQuestionId = Array();
+            @{
+                if (!Tools.IsObjectNullOrEmpty(ViewBag.QuestionIdArray))
+                {
+                    @Html.Raw(ViewBag.QuestionIdArray)
+                }
+            }
             $('#finishExam').click(function () {
-                alert("submit edildi");
+                var examId = $(this).attr('data-id');
+                var givenExamAnswers = {};
+                for (i = 0; i < listQuestionId.length; i++) {
+                    givenExamAnswers['question'+listQuestionId[i]] = $('input[name ="question' + listQuestionId[i] + '"]').val();
+                }
+                var givenExamAnswersJson = JSON.stringify(givenExamAnswers);
+                console.log(givenExamAnswers);
+                console.log(givenExamAnswersJson);
 
+                var url = '@(ViewBag.BaseUrl)exam/takeexamviaajax?accountId=@(ViewBag.AccountId)&examId=' + examId;
+                //giden datada sıkıntı var
+                $.ajax({
+                    method: "POST",
+                    url: url,
+                    data: { givenExamAnswers },
+                    success: function (response) {
+                        
+                        console.log(response);
+                    }
+                });
 
             });
         });
-    </script>
+</script>
 </body>
 </html>

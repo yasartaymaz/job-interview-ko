@@ -79,6 +79,7 @@ namespace UIWeb.ActionFilters
                     return;
                 }
                 controller.ViewBag.AuthToken = _httpContextAccessor.HttpContext.Session.GetString(SessionTexts.AuthToken);
+                controller.ViewBag.AccountId = _httpContextAccessor.HttpContext.Session.GetInt32(SessionTexts.AuthAccountId);
             }
 
             #endregion
