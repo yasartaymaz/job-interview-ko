@@ -14,11 +14,13 @@ namespace Business.Concrete
     {
         private readonly IExamQuestionAnswerDA _examQuestionAnswerDA;
         private readonly IMapper _mapper;
+        private readonly IExamQuestionService _examQuestionService;
 
-        public ExamQuestionAnswerManager(IExamQuestionAnswerDA examQuestionAnswerDA, IMapper mapper)
+        public ExamQuestionAnswerManager(IExamQuestionAnswerDA examQuestionAnswerDA, IMapper mapper, IExamQuestionService examQuestionService)
         {
             _examQuestionAnswerDA = examQuestionAnswerDA;
             _mapper = mapper;
+            _examQuestionService = examQuestionService;
         }
 
         public void Insert(ExamQuestionAnswerDTO examQuestionAnswer)
@@ -33,6 +35,20 @@ namespace Business.Concrete
             List<ExamQuestionAnswerDTO> dto = _mapper.Map<List<ExamQuestionAnswerDTO>>(entities);
 
             return new SuccessDataResult<List<ExamQuestionAnswerDTO>>(dto);
+        }
+
+        public IDataResult<List<ExamQuestionAnswerDTO>> GetListCorrectAnswersByExamId(int examId)
+        {
+            List<ExamQuestionDTO> questions = _examQuestionService.GetListByExamId(examId).Data;
+            List<ExamQuestionAnswerDTO> answers = new List<ExamQuestionAnswerDTO>();
+            foreach (ExamQuestionDTO question in questions)
+            {
+                ExamQuestionAnswer answerRow = _examQuestionAnswerDA.Get(x => x.QuestionId == question.Id && x.Correct == 1);
+                ExamQuestionAnswerDTO answerRowDto = _mapper.Map<ExamQuestionAnswerDTO>(answerRow);
+                answers.Add(answerRowDto);
+            }
+
+            return new SuccessDataResult<List<ExamQuestionAnswerDTO>>(answers);
         }
     }
 }

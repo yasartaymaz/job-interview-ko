@@ -24,6 +24,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ExamManager>().As<IExamService>();
             builder.RegisterType<ExamQuestionManager>().As<IExamQuestionService>();
             builder.RegisterType<ExamQuestionAnswerManager>().As<IExamQuestionAnswerService>();
+            builder.RegisterType<TakenExamManager>().As<ITakenExamService>();
+            builder.RegisterType<TakenExamAnswerManager>().As<ITakenExamAnswerService>();
             #endregion
 
             #region data access layer
@@ -34,6 +36,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ExamDA>().As<IExamDA>();
             builder.RegisterType<ExamQuestionDA>().As<IExamQuestionDA>();
             builder.RegisterType<ExamQuestionAnswerDA>().As<IExamQuestionAnswerDA>();
+            builder.RegisterType<TakenExamDA>().As<ITakenExamDA>();
+            builder.RegisterType<TakenExamAnswerDA>().As<ITakenExamAnswerDA>();
             #endregion
 
             #region core layer

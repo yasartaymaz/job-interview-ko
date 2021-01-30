@@ -146,11 +146,10 @@ namespace UIWeb.Controllers
             List<TakenExamAnswerDTO> answers = new List<TakenExamAnswerDTO>();
             foreach (ExamQuestionDTO item in questions)
             {
-                if (!String.IsNullOrEmpty(form["givenExamAnswers[question" + item.Id + "]"]))//burayı görmuyor
+                if (!String.IsNullOrEmpty(form["givenExamAnswers[question" + item.Id + "]"]))
                 {
                     TakenExamAnswerDTO answer = new TakenExamAnswerDTO
                     {
-                        ExamId = examId,
                         AccountId = accountId,
                         QuestionId = item.Id,
                         AnswerId = Tools.StrToInt(form["givenExamAnswers[question" + item.Id + "]"])

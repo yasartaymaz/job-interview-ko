@@ -19,14 +19,16 @@ namespace Business.Concrete
         private readonly IExamQuestionService _examQuestionService;
         private readonly IExamQuestionAnswerService _examQuestionAnswerService;
         private readonly IArticleService _articleService;
+        private readonly ITakenExamService _takenExamService;
 
-        public ExamManager(IExamDA examDA, IMapper mapper, IExamQuestionService examQuestionService, IExamQuestionAnswerService examQuestionAnswerService, IArticleService articleService)
+        public ExamManager(IExamDA examDA, IMapper mapper, IExamQuestionService examQuestionService, IExamQuestionAnswerService examQuestionAnswerService, IArticleService articleService, ITakenExamService takenExamService)
         {
             _examDA = examDA;
             _mapper = mapper;
             _examQuestionService = examQuestionService;
             _examQuestionAnswerService = examQuestionAnswerService;
             _articleService = articleService;
+            _takenExamService = takenExamService;
         }
 
         public IResult CreateExam(List<CreateExamFromArticleDTO> questions)
@@ -127,9 +129,20 @@ namespace Business.Concrete
 
         public IDataResult<TakeExamDTO> TakeExam(TakeExamDTO takeExamDto)
         {
-            //getlist examquestionanswers
-            //foreach takeExamdto.TakenAnswers
-            //return takeExamDto
+            List<ExamQuestionAnswerDTO> examQuestionAnswers = _examQuestionAnswerService.GetListCorrectAnswersByExamId(takeExamDto.ExamId).Data;
+            foreach (TakenExamAnswerDTO item in takeExamDto.TakenAnswers)
+            {
+                if (!Tools.IsObjectNullOrEmpty(examQuestionAnswers.FirstOrDefault(x => x.QuestionId == item.QuestionId && x.Id == item.AnswerId && x.Correct == 1)))
+                {
+                    item.Correct = 1;
+                }
+                else
+                {
+                    item.CorrectAnswerId = examQuestionAnswers.FirstOrDefault(x => x.QuestionId == item.QuestionId && x.Correct == 1).Id;
+                }
+            }
+            takeExamDto = _takenExamService.Insert(takeExamDto).Data;
+
             return new SuccessDataResult<TakeExamDTO>(takeExamDto);
         }
     }

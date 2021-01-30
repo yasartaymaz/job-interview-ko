@@ -11,5 +11,7 @@ namespace Business.Abstract
         void Insert(ExamQuestionAnswerDTO examQuestionAnswer);
 
         IDataResult<List<ExamQuestionAnswerDTO>> GetListByQuestionId(int id);
+
+        IDataResult<List<ExamQuestionAnswerDTO>> GetListCorrectAnswersByExamId(int examId);
     }
 }

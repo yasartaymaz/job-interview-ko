@@ -31,8 +31,8 @@
                     foreach (ExamQuestionAnswerDTO answer in question.Answers)
                     {
                         string newLineString = "</div><br /><div class='row'>";
-                        <div class="col">
-                            <label><input type="radio" name="question@(question.Id)" value="@answer.Id" required />&nbsp;@answer.Value</label>
+                        <div class="col colAnswer" id="colAnswer@(answer.Id)">
+                            <label><input type="radio" name="question@(question.Id)" value="@answer.Id" required id="answer@(answer.Id)" />&nbsp;@answer.Value</label>
                         </div>
                         if (j % 2 == 0 && j != 4)
                         {

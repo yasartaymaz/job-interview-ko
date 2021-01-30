@@ -88,21 +88,34 @@
                 var examId = $(this).attr('data-id');
                 var givenExamAnswers = {};
                 for (i = 0; i < listQuestionId.length; i++) {
-                    givenExamAnswers['question'+listQuestionId[i]] = $('input[name ="question' + listQuestionId[i] + '"]').val();
+                    givenExamAnswers['question'+listQuestionId[i]] = $('input[name ="question' + listQuestionId[i] + '"]:checked').val();
                 }
                 var givenExamAnswersJson = JSON.stringify(givenExamAnswers);
-                console.log(givenExamAnswers);
-                console.log(givenExamAnswersJson);
+                $('.colAnswer').removeClass('bg-success');
+                $('.colAnswer').removeClass('bg-danger');
 
                 var url = '@(ViewBag.BaseUrl)exam/takeexamviaajax?accountId=@(ViewBag.AccountId)&examId=' + examId;
-                //giden datada sıkıntı var
+
                 $.ajax({
                     method: "POST",
                     url: url,
                     data: { givenExamAnswers },
                     success: function (response) {
-                        
-                        console.log(response);
+                        toastr.success('Sınavınızı tamamladınız. Tebrikler.', 'Başarılı', { timeOut: 5000 });//bu sınav sonucundan bağımsız bir şekilde sınavın tamamlandıgını belirtiyor.
+                        for (var i = 0; i < 4; i++) {
+                            var answerId = response.TakenAnswers[i].AnswerId;
+                            var correct = response.TakenAnswers[i].Correct;
+                            var correctAnswerId = response.TakenAnswers[i].CorrectAnswerId;
+                            if (correct == 1) {
+                                console.log(answerId + " is correct");
+                                $('#colAnswer' + answerId).addClass('bg-success');
+                            }
+                            else {
+                                console.log(answerId + " is wrong, correct answer is " + correctAnswerId);
+                                $('#colAnswer' + answerId).addClass('bg-danger');
+                                $('#colAnswer' + correctAnswerId).addClass('bg-success');
+                            }
+                        }
                     }
                 });
 

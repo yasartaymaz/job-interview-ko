@@ -36,7 +36,7 @@ namespace Core.Utilities
         public static bool IsObjectNullOrEmpty(object input)
         {
             bool result = false;
-            if (input == null)
+            if (input is null)
             {
                 result = true;
             }
@@ -47,7 +47,7 @@ namespace Core.Utilities
         public static bool IsObjectNullOrEmpty(ICollection input)
         {
             bool result = false;
-            if (input == null || input.Count == 0)
+            if (input is null || input.Count is 0)
             {
                 result = true;
             }

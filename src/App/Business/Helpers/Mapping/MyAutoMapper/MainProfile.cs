@@ -28,6 +28,12 @@ namespace Business.Helpers.Mapping.MyAutoMapper
 
             CreateMap<ExamQuestionAnswer, ExamQuestionAnswerDTO>();
             CreateMap<ExamQuestionAnswerDTO, ExamQuestionAnswer>();
+
+            CreateMap<TakenExam, TakenExamDTO>();
+            CreateMap<TakenExamDTO, TakenExam>();
+
+            CreateMap<TakenExamAnswer, TakenExamAnswerDTO>();
+            CreateMap<TakenExamAnswerDTO, TakenExamAnswer>();
         }
     }
 }
