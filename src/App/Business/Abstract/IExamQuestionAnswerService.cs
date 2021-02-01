@@ -13,5 +13,7 @@ namespace Business.Abstract
         IDataResult<List<ExamQuestionAnswerDTO>> GetListByQuestionId(int id);
 
         IDataResult<List<ExamQuestionAnswerDTO>> GetListCorrectAnswersByExamId(int examId);
+
+        IDataResult<List<ExamQuestionDTO>> GetListByQuestions(List<ExamQuestionDTO> questions);
     }
 }

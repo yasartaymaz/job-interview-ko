@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Abstract;
@@ -13,10 +14,15 @@ namespace Business.Concrete
     {
         private readonly ITakenExamDA _takenExamDA;
         private readonly ITakenExamAnswerService _takenExamAnswerService;
-        public TakenExamManager(ITakenExamDA takenExamDA, ITakenExamAnswerService takenExamAnswerService)
+        private readonly IMapper _mapper;
+        private readonly IExamDA _examDA;//burada examservice'i cagıramıyorum. cunku circular dependency error olacak ve runtimeda hata verecek.
+
+        public TakenExamManager(ITakenExamDA takenExamDA, ITakenExamAnswerService takenExamAnswerService, IMapper mapper, IExamDA examDA)
         {
             _takenExamDA = takenExamDA;
             _takenExamAnswerService = takenExamAnswerService;
+            _mapper = mapper;
+            _examDA = examDA;
         }
 
         public IDataResult<TakeExamDTO> Insert(TakeExamDTO takeExamDTO)

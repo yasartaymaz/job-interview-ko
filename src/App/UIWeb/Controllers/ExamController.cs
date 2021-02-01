@@ -18,13 +18,17 @@ namespace UIWeb.Controllers
         private readonly IArticleService _articleService;
         private readonly IExamService _examService;
         private readonly IExamQuestionService _examQuestionService;
+        private readonly ITakenExamService _takenExamService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ExamController(ISessionService sessionService, IArticleService articleService, IExamService examService, IExamQuestionAnswerService examQuestionAnswerService, IExamQuestionService examQuestionService)
+        public ExamController(ISessionService sessionService, IArticleService articleService, IExamService examService, IExamQuestionAnswerService examQuestionAnswerService, IExamQuestionService examQuestionService, ITakenExamService takenExamService, IHttpContextAccessor httpContextAccessor)
         {
             _sessionService = sessionService;
             _articleService = articleService;
             _examService = examService;
             _examQuestionService = examQuestionService;
+            _takenExamService = takenExamService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Create()

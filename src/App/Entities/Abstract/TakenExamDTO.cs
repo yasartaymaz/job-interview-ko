@@ -10,5 +10,6 @@ namespace Entities.Abstract
         public int Id { get; set; }
         public int AccountId { get; set; }
         public int ExamId { get; set; }
+        public string ArticleHeader { get; set; }
     }
 }

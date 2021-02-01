@@ -50,5 +50,15 @@ namespace Business.Concrete
 
             return new SuccessDataResult<List<ExamQuestionAnswerDTO>>(answers);
         }
+
+        public IDataResult<List<ExamQuestionDTO>> GetListByQuestions(List<ExamQuestionDTO> questions)
+        {
+            foreach (ExamQuestionDTO item in questions)
+            {
+                item.Answers = GetListByQuestionId(item.Id).Data;
+            }
+
+            return new SuccessDataResult<List<ExamQuestionDTO>>(questions);
+        }
     }
 }
